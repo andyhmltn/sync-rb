@@ -29,7 +29,11 @@ resp = http.request(request)
 data = resp.body
  
 result = JSON.parse(data)
- 
+
+if result.length == 1 && result["message"] = "Not Found"
+  abort "GitHub user #{ARGV[0]} doesn't exist"
+end
+
 result.each { |repo|
  puts "Fetching #{repo['full_name']}"
  system "git clone git@github.com:#{repo['full_name']}.git"
